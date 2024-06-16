@@ -298,7 +298,7 @@ let dotnetSdk = lazy DotNet.install DotNet.Versions.FromGlobalJson
 let inline dotnetWorkingDir wd =
     DotNet.Options.lift dotnetSdk.Value
     >> DotNet.Options.withWorkingDirectory wd
-    >> DotNet.Options.withTimeout (Some(System.TimeSpan.FromMinutes 20.))
+    >> DotNet.Options.withTimeout (Some(System.TimeSpan.FromMinutes 30.))
 
 /// <summary>
 /// DotNet host with default values and given arguments
