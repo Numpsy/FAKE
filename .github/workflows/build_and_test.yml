@@ -3,6 +3,10 @@ name: FAKE Build and Test
 on:
     [push, pull_request]
 
+env:
+    COMPlus_ReadyToRun: 0
+    if: runner.os == 'macOS'
+
 jobs:
     build:
 
