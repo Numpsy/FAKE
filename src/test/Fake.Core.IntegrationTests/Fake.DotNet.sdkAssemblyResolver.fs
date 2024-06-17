@@ -47,7 +47,7 @@ let tests =
                   let stdOut = String.Join("\n", result.Messages).Trim()
 
                   let expectedNet6PathPortion =
-                      "packs" </> "Microsoft.NETCore.App.Ref" </> "6.0.0" </> "ref" </> "net6.0"
+                      "packs" </> "Microsoft.NETCore.App.Ref" </> "6.0.5" </> "ref" </> "net6.0"
 
                   (sprintf "stdout should contain path like '%s', but was: '%s'" expectedNet6PathPortion stdOut)
                   |> Expect.isTrue (stdOut.Contains expectedNet6PathPortion)
@@ -89,7 +89,7 @@ let tests =
                   let stdOut = String.Join("\n", result.Messages).Trim()
 
                   let expectedNet6PathPortion =
-                      "packs" </> "Microsoft.NETCore.App.Ref" </> "6.0.1" </> "ref" </> "net6.0"
+                      "packs" </> "Microsoft.NETCore.App.Ref" </> "6.0.6" </> "ref" </> "net6.0"
 
                   (sprintf "stdout should contain path like '%s', but was: '%s'" expectedNet6PathPortion stdOut)
                   |> Expect.isTrue (stdOut.Contains expectedNet6PathPortion)
@@ -164,7 +164,7 @@ let tests =
                   printfn "%s" stdOut
 
                   let expectedNet6PathPortion =
-                      "packs" </> "Microsoft.NETCore.App.Ref" </> "6.0.0" </> "ref" </> "net6.0"
+                      "packs" </> "Microsoft.NETCore.App.Ref" </> "6.0.5" </> "ref" </> "net6.0"
 
                   let expectedCacheFileResolutionMessage =
                       "Trying to resolve runtime version from cache.."
