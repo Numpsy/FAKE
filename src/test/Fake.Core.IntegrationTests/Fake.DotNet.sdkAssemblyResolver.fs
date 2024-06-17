@@ -13,7 +13,7 @@ open Fake.Runtime
 let tests =
     testList
         "Fake.DotNet.sdkAssemblyResolverTests"
-        [ testCase "Runner run script with 6.0.100 SDK version assemblies"
+        [ testCase "Runner run script with 6.0.300 SDK version assemblies"
           <| fun _ ->
               try
                   use d = createTestDir ()
@@ -30,7 +30,7 @@ let tests =
                           WorkingDirectory = scenarioTempPath "core-reference-assemblies-net60100"
                           CustomInstallDir = Some preparedDir
                           Channel = DotNet.CliChannel.Version 6 0
-                          Version = DotNet.CliVersion.Version "6.0.100" })
+                          Version = DotNet.CliVersion.Version "6.0.300" })
                   |> ignore
 
                   Environment.setEnvironVar "FAKE_SDK_RESOLVER_CUSTOM_DOTNET_PATH" preparedDir
@@ -55,7 +55,7 @@ let tests =
                   // clean up after the test run
                   Environment.setEnvironVar "FAKE_SDK_RESOLVER_CUSTOM_DOTNET_PATH" ""
 
-          testCase "Runner run script with 6.0.101 SDK version assemblies"
+          testCase "Runner run script with 6.0.301 SDK version assemblies"
           <| fun _ ->
               try
                   use d = createTestDir ()
@@ -72,7 +72,7 @@ let tests =
                           WorkingDirectory = scenarioTempPath "core-reference-assemblies-net60101"
                           CustomInstallDir = Some preparedDir
                           Channel = DotNet.CliChannel.Version 6 0
-                          Version = DotNet.CliVersion.Version "6.0.101" })
+                          Version = DotNet.CliVersion.Version "6.0.301" })
                   |> ignore
 
                   Environment.setEnvironVar "FAKE_SDK_RESOLVER_CUSTOM_DOTNET_PATH" preparedDir
@@ -113,7 +113,7 @@ let tests =
                       WorkingDirectory = scenarioTempPath "core-reference-assemblies-net60101-rollforward"
                       CustomInstallDir = Some preparedDir
                       Channel = DotNet.CliChannel.Version 6 0
-                      Version = DotNet.CliVersion.Version "6.0.101" })
+                      Version = DotNet.CliVersion.Version "6.0.301" })
               |> ignore
 
               let result =
@@ -127,7 +127,7 @@ let tests =
 
               Expect.isTrue result.OK "The build did not succeed"
 
-          testCase "Runner run script with 6.0.100 SDK version assemblies and resolve runtime version from cached file"
+          testCase "Runner run script with 6.0.300 SDK version assemblies and resolve runtime version from cached file"
           <| fun _ ->
               try
                   use d = createTestDir ()
@@ -144,7 +144,7 @@ let tests =
                           WorkingDirectory = scenarioTempPath "core-reference-assemblies-net60100"
                           CustomInstallDir = Some preparedDir
                           Channel = DotNet.CliChannel.Version 6 0
-                          Version = DotNet.CliVersion.Version "6.0.100" })
+                          Version = DotNet.CliVersion.Version "6.0.300" })
                   |> ignore
 
                   Environment.setEnvironVar "FAKE_SDK_RESOLVER_CUSTOM_DOTNET_PATH" preparedDir
