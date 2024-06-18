@@ -620,18 +620,18 @@ let prepareContext (config: FakeConfig) (cache: ICachingProvider) =
           Hash = scriptHash }
 
     let context, cache = cache.TryLoadCache context
-#if NETSTANDARD1_6
-    // See https://github.com/dotnet/coreclr/issues/6411 and https://github.com/dotnet/coreclr/blob/master/Documentation/design-docs/assemblyloadcontext.md
-    let fakeLoadContext () : AssemblyLoadContext =
-        FakeLoadContext(
-            context.Config.VerboseLevel,
-            context.Config.RuntimeOptions.RuntimeDependencies,
-            context.Config.RuntimeOptions.NativeLibraries
-        )
-        :> _
-#else
-    let fakeLoadContext () : AssemblyLoadContext = new AssemblyLoadContext()
-#endif
+//#if NETSTANDARD1_6
+//    // See https://github.com/dotnet/coreclr/issues/6411 and https://github.com/dotnet/coreclr/blob/master/Documentation/design-docs/assemblyloadcontext.md
+//    let fakeLoadContext () : AssemblyLoadContext =
+//        FakeLoadContext(
+//            context.Config.VerboseLevel,
+//            context.Config.RuntimeOptions.RuntimeDependencies,
+//            context.Config.RuntimeOptions.NativeLibraries
+//        )
+//        :> _
+//#else
+    let fakeLoadContext () : AssemblyLoadContext = new AssemblyLoadContext("FAKEContext")
+//#endif
     { context with CreateAssemblyContext = fakeLoadContext }, cache
 
 let setupAssemblyResolverLogger (context: FakeContext) =
