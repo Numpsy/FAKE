@@ -1,16 +1,17 @@
 #r "paket:
 nuget Fake.Core.Target
-nuget System.Data.SQLite.Core //"
+nuget Microsoft.Data.SQLite //"
 #load "./.fake/build.fsx/intellisense.fsx"
 
 open Fake.Core
-open System.Data.SQLite
+open Microsoft.Data.Sqlite
 
 let openConn (path:string) =
-    let builder = SQLiteConnectionStringBuilder()
+    let builder = SqliteConnectionStringBuilder()
     builder.DataSource <- path
-    let conn = new SQLiteConnection(builder.ToString())
-    conn.OpenAndReturn()
+    let conn = new SqliteConnection(builder.ToString())
+    conn.Open()
+    conn
 
 module Imports =
     open System.Runtime.InteropServices
@@ -18,7 +19,7 @@ module Imports =
     extern uint32 GetCurrentProcessId()
     [<DllImport("unknown_dependency.dll")>]
     extern uint32 UnknownFunctionInDll()
-    [<DllImport("SQLite.Interop.dll")>]
+    [<DllImport("e_sqlite3")>]
     extern uint32 Fake_ShouldNotExistExtryPoint()
 
 // Default target
