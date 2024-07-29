@@ -831,7 +831,8 @@ module DotNet =
 
         let currentDotNetRoot = Environment.environVar "DOTNET_ROOT"
 
-        let realFolder =
+        let realFolder = dotnetFolder
+        (*
             if not Environment.isWindows then
 #if !FX_NO_POSIX
                 // resolve potential symbolic link to the real location
@@ -846,7 +847,7 @@ module DotNet =
 #endif
             else
                 dotnetFolder
-
+        *)
         if
             String.IsNullOrEmpty currentDotNetRoot
             || not (currentDotNetRoot.Contains realFolder)
