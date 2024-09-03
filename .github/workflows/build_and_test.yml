@@ -24,6 +24,8 @@ jobs:
               run: dotnet tool restore
             - name: remove current fake runner tool
               run: dotnet tool uninstall fake-cli
+            - name: Build temp-packages to break recursive build.fsx
+              run: dotnet pack -o release/temp-recursion-break -p:Version=99.0.0-local
             - name: Build fake runner
               run: dotnet pack --version-suffix 1 src/app/fake-cli/fake-cli.fsproj
             - name: add fake runner as a tool

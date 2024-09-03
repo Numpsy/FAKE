@@ -3,13 +3,14 @@
 // And to release do: dotnet fake run build.fsx -e configuration=Release -t Release
 
 #r "paket:
+source release/temp-recursion-break
 source release/dotnetcore
 source https://api.nuget.org/v3/index.json
 nuget FSharp.Core
-nuget Microsoft.Build 17.3.2
-nuget Microsoft.Build.Framework 17.3.2
-nuget Microsoft.Build.Tasks.Core 17.3.2
-nuget Microsoft.Build.Utilities.Core 17.3.2
+nuget Microsoft.Build 17.11.4
+nuget Microsoft.Build.Framework 17.11.4
+nuget Microsoft.Build.Tasks.Core 17.11.4
+nuget Microsoft.Build.Utilities.Core 17.11.4
 nuget System.AppContext prerelease
 nuget Paket.Core prerelease
 nuget Fake.Api.GitHub prerelease
@@ -41,7 +42,7 @@ nuget System.Reactive.Compatibility
 nuget Suave
 nuget Newtonsoft.Json
 nuget System.Net.Http
-nuget Octokit 6.0.0
+nuget Octokit 13.0.1
 nuget Microsoft.Deployment.DotNet.Releases //"
 
 open System.Reflection
