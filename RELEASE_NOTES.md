@@ -1,4 +1,7 @@
 # Release Notes
+## 6.1.2 - 2024-09-03
+* Added .NET8.0 to package target libraries
+* Some dependency updates
 
 ## 6.1.1 - 2024-08-30
 * BUGFIX: Assembly resolver to pick a found SDK instead of first SDK, thanks @Thorium - https://github.com/fsprojects/FAKE/pull/2797/files

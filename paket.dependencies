@@ -19,7 +19,7 @@ group Build
 
 group fakerunner
     source https://api.nuget.org/v3/index.json
-    framework: net472, netstandard2.0, netcoreapp2.1, net6.0
+    framework: net472, netstandard2.0, netcoreapp2.1, net6.0, net8.0
     storage: none
 
     nuget FSharp.Core
@@ -34,7 +34,7 @@ group fakerunner
     nuget Packaging.Targets
 
     // Testing
-    nuget Expecto
+    nuget Expecto 9.0.4
     nuget Expecto.TestResults
     nuget Expecto.FsCheck
     nuget YoloDev.Expecto.TestSdk
@@ -45,7 +45,7 @@ group fakerunner
 
 group fakemodule
     source https://api.nuget.org/v3/index.json
-    framework: net472, netstandard2.0, netcoreapp2.1, net6.0
+    framework: net472, netstandard2.0, netcoreapp2.1, net6.0, net8.0
     storage: none
 
     nuget DotNet.Xdt

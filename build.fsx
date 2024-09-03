@@ -809,7 +809,8 @@ runtimes
                     { c with
                         Runtime = Some runtime.Value
                         Configuration = DotNet.Release
-                        OutputPath = Some outDir }
+                        OutputPath = Some outDir 
+                        MSBuildParams = { MSBuild.CliArguments.Create() with DisableInternalBinLog = true }}
                     |> dotnetSimple)
                 proj
 
@@ -876,7 +877,8 @@ Target.create "DotNetCreateNuGetPackage" (fun _ ->
                     { c.MSBuildParams with
                         Properties =
                             [ ("Version", nugetVersion)
-                              ("PackageReleaseNotes", release.Notes |> String.toLines) ] } }
+                              ("PackageReleaseNotes", release.Notes |> String.toLines) ] 
+                        DisableInternalBinLog = true } }
             |> dotnetSimple)
         "Fake.sln"
 
