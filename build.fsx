@@ -6,6 +6,7 @@
 source release/temp-recursion-break
 source release/dotnetcore
 source https://api.nuget.org/v3/index.json
+framework: netstandard2.0,net6.0,net8.0
 nuget FSharp.Core
 nuget Microsoft.Build 17.11.4
 nuget Microsoft.Build.Framework 17.11.4
