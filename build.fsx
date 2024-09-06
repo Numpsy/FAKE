@@ -37,7 +37,6 @@ nuget Fake.Windows.Chocolatey prerelease
 nuget Fake.JavaScript.Npm prerelease
 nuget Fake.Tools.Git prerelease
 nuget Mono.Cecil prerelease
-nuget System.Reactive.Compatibility
 nuget Suave
 nuget Newtonsoft.Json
 nuget System.Net.Http
