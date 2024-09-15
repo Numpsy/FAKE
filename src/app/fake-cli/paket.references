@@ -5,4 +5,6 @@ Mono.Cecil
 Microsoft.NETCore.App
 NETStandard.Library
 Packaging.Targets
+Microsoft.Build.Framework
+Microsoft.Build.Utilities.Core
 Microsoft.Deployment.DotNet.Releases
