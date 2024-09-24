@@ -658,7 +658,7 @@ Target.create "DotNetCoreIntegrationTests" (fun _ ->
 
     runExpecto
         root
-        "src/test/Fake.Core.IntegrationTests/bin/Release/net8.0/Fake.Core.IntegrationTests.dll"
+        "src/test/Fake.Core.IntegrationTests/bin/Release/net6.0/Fake.Core.IntegrationTests.dll"
         "Fake_Core_IntegrationTests.TestResults.xml")
 
 Target.create "TemplateIntegrationTests" (fun _ ->
