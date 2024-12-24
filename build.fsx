@@ -661,11 +661,10 @@ Target.create "DotNetCoreIntegrationTests" (fun _ ->
         "Fake_Core_IntegrationTests.TestResults.xml")
 
 Target.create "TemplateIntegrationTests" (fun _ ->
-    let targetDir = (srcDir </> "test" </> "Fake.DotNet.Cli.IntegrationTests")
 
     runExpecto
-        targetDir
-        ("bin" </> "Release" </> "net8.0" </> "Fake.DotNet.Cli.IntegrationTests.dll")
+        root
+        ("src" </> "test" </> "Fake.DotNet.Cli.IntegrationTests" </> "bin" </> "Release" </> "net8.0" </> "Fake.DotNet.Cli.IntegrationTests.dll")
         "Fake_DotNet_Cli_IntegrationTests.TestResults.xml"
     
     Shell.rm_rf (root </> "test"))
