@@ -43,6 +43,14 @@ type DependenciesKind =
         | Inline -> "inline"
         | None -> "none"
 
+let dotnetSixSdk =
+    lazy
+        (DotNet.install
+            (fun option ->
+                { option with
+                    Channel = DotNet.CliChannel.LTS
+                    Version = DotNet.CliVersion.Version("6.0.301") })
+            (DotNet.Options.Create()))
 
 let dotnetSdk = lazy DotNet.install DotNet.Versions.FromGlobalJson
 
@@ -73,6 +81,9 @@ let runTemplate rootDir kind dependencies dsl =
     Directory.ensure rootDir
 
     try
+        // Install the .NET 6 SDK - needed to test the templates using the .NET 6 version of fake-cli
+        dotnetSixSdk.Force() |> ignore
+
         let result =
             DotNet.exec
                 (dotnetWorkingDir rootDir >> redirect ())
@@ -111,7 +122,6 @@ let invokeScript dir scriptName (args: string) =
     CreateProcess.fromRawCommandLine fullScriptPath args
     |> CreateProcess.withTimeout timeout
     |> CreateProcess.withWorkingDirectory dir
-    |> CreateProcess.withEnvironment [ ("DOTNET_ROLL_FORWARD", "latestMajor") ]
     |> CreateProcess.redirectOutput
     |> Proc.run
 
