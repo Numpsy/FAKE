@@ -111,7 +111,7 @@ let invokeScript dir scriptName (args: string) =
     CreateProcess.fromRawCommandLine fullScriptPath args
     |> CreateProcess.withTimeout timeout
     |> CreateProcess.withWorkingDirectory dir
-    |> CreateProcess.withEnvironment [ ("FAKE_SDK_RESOLVER_CUSTOM_DOTNET_VERSION", "6.0") ]
+    |> CreateProcess.withEnvironment [ ("DOTNET_ROLL_FORWARD", "latestMajor") ]
     |> CreateProcess.redirectOutput
     |> Proc.run
 
