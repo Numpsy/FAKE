@@ -48,7 +48,9 @@ let dotnetSixSdk =
         (DotNet.install
             (fun option ->
                 { option with
-                    Channel = DotNet.CliChannel.LTS
+                    ForceInstall = true
+                    InstallerOptions = id
+                    Channel = Option.None
                     Version = DotNet.CliVersion.Version("6.0.301") })
             (DotNet.Options.Create()))
 
