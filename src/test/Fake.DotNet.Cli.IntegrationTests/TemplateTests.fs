@@ -112,6 +112,8 @@ let invokeScript dir scriptName (args: string) =
     |> CreateProcess.withTimeout timeout
     |> CreateProcess.withWorkingDirectory dir
     |> CreateProcess.redirectOutput
+    |> CreateProcess.setEnvironmentVariable "FAKE_SDK_RESOLVER_CUSTOM_DOTNET_VERSION" "8.0"
+    |> CreateProcess.withEnvironment [ ("DOTNET_ROLL_FORWARD", "latestMajor") ]
     |> Proc.run
 
 let fileContainsText dir fileName text =
