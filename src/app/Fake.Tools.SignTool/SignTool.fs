@@ -171,6 +171,9 @@ module SignTool =
             /// Working directory.
             /// If not provided, current directory will be used.
             WorkingDir: string option
+            /// Whether to prefer the x64 version of SignTool.exe, if present
+            /// If not set, uses the x86 one as before
+            Prefer64BitSignToolExe: bool option
         }
 
         /// Options default values.
@@ -187,7 +190,9 @@ module SignTool =
               Verbosity = None
               ToolPath = None
               Timeout = None
-              WorkingDir = None }
+              WorkingDir = None
+              // RW: Setting this to true because it's better for me. Other people may prefer it at none, or based on the current architecture etc...
+              Prefer64BitSignToolExe = Some true }
 
     /// <summary>
     /// Timestamp command options
@@ -350,10 +355,16 @@ module SignTool =
             |> failwith
 
     /// default signtool.exe locator
-    let internal defaultSignToolExeLocator () =
+    let internal defaultSignToolExeLocator (preferX64ExeIsPossible: bool) =
         let winSdksDirs =
             seq {
                 // tryFindFile doesn't understand globbing, so it has to be done beforehand
+                // if the 'preferX64' flag is set and this is a 64bit OS, try using the 64 bit signtool if there is one
+                if preferX64ExeIsPossible && Environment.Is64BitOperatingSystem then
+                    yield!
+                        !!(Environment.ProgramFilesX86 + @"\Windows Kits\10\bin\**\x64")
+                        |> Seq.sortDescending
+
                 yield!
                     !!(Environment.ProgramFilesX86 + @"\Windows Kits\10\bin\**\x86")
                     |> Seq.sortDescending
@@ -362,6 +373,9 @@ module SignTool =
             }
 
         ProcessUtils.tryFindFile winSdksDirs "signtool.exe"
+
+    let private optionsSignToolExeLocator (options: SignOptions) =
+        fun () -> defaultSignToolExeLocator (options.Prefer64BitSignToolExe |> Option.defaultValue false)
 
 
     /// append common arguments
@@ -498,7 +512,8 @@ module SignTool =
     /// <param name="files">The files list to sign</param>
     let sign (certificate: SignCertificate) (setOptions: SignOptions -> SignOptions) (files: seq<string>) =
         let options = setOptions (SignOptions.Create(certificate))
-        signInternal defaultRunner defaultSignToolExeLocator options files
+        let locator = optionsSignToolExeLocator options
+        signInternal defaultRunner locator options files
 
     /// <summary>
     /// Signs and time stamps files according to the options specified.
@@ -518,7 +533,8 @@ module SignTool =
         =
         let signOptions = setSignOptions (SignOptions.Create(certificate))
         let timeStampOptions = setTimeStampOptions (TimeStampOption.Create(serverUrl))
-        signWithTimeStampInternal defaultRunner defaultSignToolExeLocator signOptions timeStampOptions files
+        let locator = optionsSignToolExeLocator signOptions
+        signWithTimeStampInternal defaultRunner locator signOptions timeStampOptions files
 
     /// <summary>
     /// Time stamps files according to the options specified. The files being time stamped must
@@ -530,7 +546,7 @@ module SignTool =
     /// <param name="files">The files list to sign</param>
     let timeStamp (serverUrl: string) (setOptions: TimeStampOptions -> TimeStampOptions) (files: seq<string>) =
         let options = setOptions (TimeStampOptions.Create(serverUrl))
-        timeStampInternal defaultRunner defaultSignToolExeLocator options files
+        timeStampInternal defaultRunner (fun () -> defaultSignToolExeLocator false) options files
 
     /// <summary>
     /// Verifies files according to the options specified.
@@ -543,4 +559,4 @@ module SignTool =
     /// <param name="files">The files list to verify the signing</param>
     let verify (setOptions: VerifyOptions -> VerifyOptions) (files: seq<string>) =
         let options = setOptions (VerifyOptions.Create())
-        verifyInternal defaultRunner defaultSignToolExeLocator options files
+        verifyInternal defaultRunner (fun () -> defaultSignToolExeLocator false) options files
