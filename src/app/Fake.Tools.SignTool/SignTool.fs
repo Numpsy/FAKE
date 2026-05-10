@@ -537,6 +537,27 @@ module SignTool =
         signWithTimeStampInternal defaultRunner locator signOptions timeStampOptions files
 
     /// <summary>
+    /// Signs and time stamps files using the specified cert from the machine cert store.
+    /// This function always uses SHA256 for time stamping to reduce complexity in the api;
+    /// </summary>
+    ///
+    /// <param name="certificateSha1Hash">The sha1 hash of the signing certificate. This cert must be present in the machine store</param>
+    /// <param name="setSignOptions">The sign tool options</param>
+    /// <param name="serverUrl">The timestamp server URL</param>
+    /// <param name="files">The files list to sign</param>
+    let signAndTimeStampWithMachineCert
+        (certificateSha1Hash: string)
+        (setSignOptions: SignOptions -> SignOptions)
+        (serverUrl: string)
+        (files: seq<string>)
+        =
+        let certificate = SignCertificate.FromStore(fun o -> { o with Hash = Some(certificateSha1Hash); UseComputerStore = Some(true) })
+        let signOptions = setSignOptions (SignOptions.Create(certificate))
+        let timeStampOptions = TimeStampOption.Create(serverUrl)
+        let locator = optionsSignToolExeLocator signOptions
+        signWithTimeStampInternal defaultRunner locator signOptions timeStampOptions files
+
+    /// <summary>
     /// Time stamps files according to the options specified. The files being time stamped must
     /// have previously been signed.
     /// </summary>
