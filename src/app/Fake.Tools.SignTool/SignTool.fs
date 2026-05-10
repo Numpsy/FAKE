@@ -46,7 +46,7 @@ module SignTool =
         /// Options default values.
         static member Create(serverUrl) =
             { ServerUrl = serverUrl
-              Algorithm = None }
+              Algorithm = Some SHA256 }
 
     /// <summary>
     /// Specifies parameters to use when using a certificate from a file.
@@ -179,7 +179,7 @@ module SignTool =
         /// Options default values.
         static member Create(certificate) =
             { Certificate = certificate
-              DigestAlgorithm = None
+              DigestAlgorithm = Some SHA256
               AdditionalCertificate = None
               AppendSignature = None
               CertificateTemplateName = None
