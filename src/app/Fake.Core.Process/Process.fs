@@ -914,58 +914,6 @@ module Process =
         | _ -> proc
 
 /// <summary>
-/// Allows to exec shell operations synchronously and asynchronously.
-/// </summary>
-type Shell private () =
-    static member private GetParams(cmd, ?args, ?dir) =
-        let args = defaultArg args ""
-        let dir = defaultArg dir (Directory.GetCurrentDirectory())
-
-        { WorkingDir = dir
-          Program = cmd
-          CommandLine = args
-          Args = [] }
-
-    /// <summary>
-    /// Runs the given process, waits for it's completion and returns the exit code.
-    /// </summary>
-    ///
-    /// <param name="cmd">The command which should be run in elevated context.</param>
-    /// <param name="args">The process arguments (optional).</param>
-    /// <param name="directory">The working directory (optional).</param>
-    static member Exec(cmd, ?args, ?dir) =
-        Process.shellExec (Shell.GetParams(cmd, ?args = args, ?dir = dir))
-
-    /// <summary>
-    /// Runs the given process asynchronously.
-    /// </summary>
-    ///
-    /// <param name="cmd">The command which should be run in elevated context.</param>
-    /// <param name="args">The process arguments (optional).</param>
-    /// <param name="directory">The working directory (optional).</param>
-    static member AsyncExec(cmd, ?args, ?dir) =
-        let internalArgs = Shell.GetParams(cmd, ?args = args, ?dir = dir)
-
-        if String.isNullOrEmpty internalArgs.Program then
-            invalidArg "args" "You must specify a program to run!"
-
-        let commandLine =
-            internalArgs.CommandLine + " " + Process.formatArgs internalArgs.Args
-
-        let errorF msg = Trace.traceError msg
-
-        let messageF msg = Trace.log msg
-
-        let processResult =
-            CreateProcess.fromRawCommandLine internalArgs.Program commandLine
-            |> CreateProcess.withWorkingDirectory internalArgs.WorkingDir
-            |> CreateProcess.redirectOutputIfNotRedirected
-            |> CreateProcess.withOutputEventsNotNull messageF errorF
-            |> Process.Proc.run Process.processStarter
-
-        processResult.ExitCode
-
-/// <summary>
 /// An extension to process start info type
 /// </summary>
 [<AutoOpen>]
