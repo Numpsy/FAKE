@@ -1,5 +1,5 @@
 # Release Notes
-## 8.0.0-alpha - 2025-10-25
+## 8.0.0-alpha - 2026-05-17
 * Added .NET 8.0 to package target libraries
 * Some dependency updates
 
