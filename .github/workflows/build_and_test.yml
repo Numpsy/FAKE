@@ -44,6 +44,7 @@ jobs:
               run: dotnet fake -v build --parallel 3 -e FAKE_DETAILED_ERRORS=true
             - name: publish build artifacts
               uses: actions/upload-artifact@v7
+              if: always()
               with:
                   name: fake-artifacts-${{ matrix.os }}
                   path: release/artifacts
