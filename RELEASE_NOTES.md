@@ -1,12 +1,24 @@
 # Release Notes
 
-## 10.0.0-alpha - 2026-06-28
+## 10.0.0-alpha - 2026-10-11
 * Added .NET 10.0 to package target libraries
 * Some dependency updates
 
 ## 8.0.0-alpha - 2026-05-17
 * Added .NET 8.0 to package target libraries
 * Some dependency updates
+
+## 6.1.5 - 2026-10-11
+* BUGFIX: Fix the parallel target runner hanging when a build is cancelled, thanks @Thorium - https://github.com/fsprojects/FAKE/pull/2900
+* BUGFIX: Fix a race condition when tracking started processes under the parallel target runner, which could leave processes running after Ctrl+C, thanks @Thorium - https://github.com/fsprojects/FAKE/pull/2900
+* BUGFIX: Invalidate the compiled script cache when paket.lock or the resolved dependencies change, thanks @Thorium - https://github.com/fsprojects/FAKE/pull/2900
+* BUGFIX: Honour Environment.ExitCode set by a script in the Fake.netcore runner, consistent with fake-cli, thanks @Thorium - https://github.com/fsprojects/FAKE/pull/2900
+* BUGFIX: VSTest, fail the build when the test host crashes with a negative exit code, even with ErrorLevel.DontFailBuild, thanks @Thorium - https://github.com/fsprojects/FAKE/pull/2900
+* BUGFIX: Fix quoting of commit messages in Git.Commit.exec and Git.Commit.execExtended, thanks @Thorium - https://github.com/fsprojects/FAKE/pull/2900
+* BUGFIX: Fix last changelog entry having date removed, thanks @rmunn - https://github.com/fsprojects/FAKE/pull/2891
+* ENHANCEMENT: Use Aes.Create instead of the obsolete AesManaged and disable TypeNameHandling when reading Vault JSON, thanks @Thorium - https://github.com/fsprojects/FAKE/pull/2879
+* ENHANCEMENT: Reduce the polling delay in Process.ensureProcessesHaveStopped, thanks @Thorium - https://github.com/fsprojects/FAKE/pull/2879
+* ENHANCEMENT: Add GitHub Actions and GitLab to supported build servers in docs, thanks @gdziadkiewicz - https://github.com/fsprojects/FAKE/pull/2883
 
 ## 6.1.4 - 2025-10-25
 * BUGFIX: Fixes for the .NET CDN changes described at https://github.com/dotnet/core/issues/9671, thanks @richlander, @Numpsy
