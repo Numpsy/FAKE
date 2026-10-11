@@ -19,7 +19,7 @@ jobs:
         runs-on: ${{ matrix.os }}
         strategy:
             matrix:
-                os: [ubuntu-22.04, windows-latest, macos-15-intel]
+                os: [macos-15-intel]
         steps:
             - uses: actions/checkout@v6
             - name: Setup .NET 10
@@ -47,7 +47,7 @@ jobs:
               if: always()
               with:
                   name: fake-artifacts-${{ matrix.os }}
-                  path: release/dotnetcore/Fake.netcore/current/fake
+                  path: release/dotnetcore/Fake.netcore/current
             - name: publish test results
               if: always()
               uses: actions/upload-artifact@v7
