@@ -47,7 +47,7 @@ jobs:
               if: always()
               with:
                   name: fake-artifacts-${{ matrix.os }}
-                  path: release/artifacts
+                  path: release/dotnetcore/Fake.netcore/current/fake
             - name: publish test results
               if: always()
               uses: actions/upload-artifact@v7
