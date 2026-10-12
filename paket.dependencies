@@ -24,7 +24,7 @@ group fakerunner
     nuget FSharp.Compiler.Service
     nuget Microsoft.Deployment.DotNet.Releases
     nuget NuGet.Packaging
-    nuget Paket.Core
+    nuget Paket.Core prerelease
     nuget Mono.Cecil
     nuget Microsoft.NETCore.App framework: netstandard1.6, netstandard2.0, netcoreapp1.1
     nuget NETStandard.Library
@@ -50,7 +50,7 @@ group fakemodule
     nuget FParsec
     nuget Octokit
     nuget Newtonsoft.Json
-    nuget Paket.Core
+    nuget Paket.Core prerelease
     nuget NuGet.Protocol
     nuget NuGet.Packaging
     nuget Mono.Cecil prerelease
